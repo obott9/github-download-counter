@@ -1,0 +1,33 @@
+{
+  "header": {
+    "title": "Download Counter",
+    "subtitle": "— GitHub Releases API サンプル"
+  },
+  "search": {
+    "placeholder": "GitHubユーザー名を入力...",
+    "fetch": "取得",
+    "loading": "{{username}} のリポジトリを取得中..."
+  },
+  "error": {
+    "userNotFound": "ユーザー \"{{user}}\" が見つかりません",
+    "rateLimit": "APIレート制限に達しました。しばらく待ってください。",
+    "apiError": "API エラー: {{status}}"
+  },
+  "summary": {
+    "totalDownloads": "総ダウンロード",
+    "repositories": "リポジトリ",
+    "releases": "リリース",
+    "withDownloads": "DL有りリポ"
+  },
+  "repo": {
+    "downloads": "downloads",
+    "release": "release",
+    "releases": "releases",
+    "sourceOnly": "ソースコードのみ"
+  },
+  "footer": {
+    "endpoints": "Endpoints",
+    "stack": "Stack: React + Vite | 並列fetch (Promise.all) | 認証なし60 req/hr, トークン認証5,000 req/hr",
+    "copyright": "© 2025 obott9 — GitHub Download Counter"
+  }
+}
