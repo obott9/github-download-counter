@@ -31,6 +31,7 @@
   "token": {
     "toggle": "Personal Access Token",
     "placeholder": "ghp_xxxxxxxxxxxx",
+    "save": "Save",
     "clear": "Clear",
     "description": "Optional: Enter a GitHub PAT to view clone/view traffic (your repos only, last 14 days) and increase rate limit to 5,000 req/hr. The token is stored in localStorage only.",
     "forbidden": "Traffic API returned 403. The token needs 'repo' scope (Classic PAT) or 'Administration: Read' permission (Fine-grained PAT)."

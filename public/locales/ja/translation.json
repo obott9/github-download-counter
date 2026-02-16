@@ -31,6 +31,7 @@
   "token": {
     "toggle": "Personal Access Token",
     "placeholder": "ghp_xxxxxxxxxxxx",
+    "save": "保存",
     "clear": "クリア",
     "description": "任意: GitHub PATを入力すると、クローン数/ビュー数（自分のリポジトリのみ、過去14日間）が表示され、レート制限が5,000 req/hrに増加します。トークンはlocalStorageにのみ保存されます。",
     "forbidden": "Traffic APIが403を返しました。Classic PATの場合は「repo」スコープ、Fine-grained PATの場合は「Administration: Read」権限が必要です。"

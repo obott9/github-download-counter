@@ -459,8 +459,18 @@ export default function App() {
               marginTop: 8, padding: '12px 14px', borderRadius: 8,
               background: '#161b22', border: '1px solid #21262d',
             }}>
-              <form style={{ display: 'flex', gap: 8, alignItems: 'center' }} onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
-                <input type="hidden" name="username" autoComplete="username" value="github-pat" />
+              <form
+                method="post"
+                action=""
+                style={{ display: 'flex', gap: 8, alignItems: 'center' }}
+                onSubmit={(e) => { e.preventDefault(); handleSubmit() }}
+              >
+                {/* Chromeパスワードマネージャ用: 可視のusernameフィールド（画面外に配置） */}
+                <input
+                  type="text" name="username" autoComplete="username" value="github-pat"
+                  readOnly tabIndex={-1} aria-hidden="true"
+                  style={{ position: 'absolute', left: -9999, width: 0, height: 0, overflow: 'hidden' }}
+                />
                 <input
                   type="password" name="password" autoComplete="current-password"
                   value={token}
@@ -473,6 +483,13 @@ export default function App() {
                     transition: 'border-color 0.2s, box-shadow 0.2s',
                   }}
                 />
+                <button type="submit" style={{
+                  padding: '8px 16px', borderRadius: 6, border: '1px solid rgba(240,246,252,0.1)',
+                  background: '#238636', color: '#fff', fontSize: 12, fontWeight: 600,
+                  cursor: 'pointer',
+                }}>
+                  {t('token.save')}
+                </button>
                 {token && (
                   <button type="button" onClick={() => saveToken('')} style={{
                     padding: '8px 12px', borderRadius: 6, border: '1px solid #30363d',
