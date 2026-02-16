@@ -17,13 +17,21 @@
     "totalDownloads": "Total Downloads",
     "repositories": "Repositories",
     "releases": "Releases",
-    "withDownloads": "With Downloads"
+    "withDownloads": "With Downloads",
+    "clones14d": "Clones (14d)",
+    "views14d": "Views (14d)"
   },
   "repo": {
     "downloads": "downloads",
     "release": "release",
     "releases": "releases",
     "sourceOnly": "Source code only"
+  },
+  "token": {
+    "toggle": "Personal Access Token",
+    "placeholder": "ghp_xxxxxxxxxxxx",
+    "clear": "Clear",
+    "description": "Optional: Enter a GitHub PAT to view clone/view traffic (your repos only, last 14 days) and increase rate limit to 5,000 req/hr. The token is stored in localStorage only."
   },
   "footer": {
     "endpoints": "Endpoints",
