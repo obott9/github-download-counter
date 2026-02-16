@@ -344,7 +344,14 @@ export default function App() {
 
   const handleSubmit = (e) => {
     e?.preventDefault()
-    if (input.trim()) setUsername(input.trim())
+    const user = input.trim()
+    if (!user) return
+    if (user === username) {
+      // 同じユーザー名でも再取得（トークン変更後など）
+      fetchData(user)
+    } else {
+      setUsername(user)
+    }
   }
 
   const toggleExpand = (name) => setExpanded(expanded === name ? null : name)
