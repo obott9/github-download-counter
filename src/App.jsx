@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const API = 'https://api.github.com'
@@ -95,7 +95,7 @@ function ReleaseCard({ release, isLast, t, lng }) {
 }
 
 /* ─── Traffic バッジ（クローン/ビュー） ─── */
-function TrafficBadge({ icon, label, count, uniques, color }) {
+function TrafficBadge({ icon, count, uniques, color }) {
   if (count == null) return null
   return (
     <div style={{
@@ -171,8 +171,8 @@ function RepoRow({ repo, maxDL, expanded, onToggle, hasToken, t, lng }) {
           {/* Traffic バッジ（トークン認証時のみ） */}
           {hasToken && (repo.clones != null || repo.views != null) && (
             <div style={{ display: 'flex', gap: 16, marginTop: 6 }}>
-              <TrafficBadge icon="&#128230;" label="clones" count={repo.clones} uniques={repo.clonesUniques} color="#79c0ff" />
-              <TrafficBadge icon="&#128065;" label="views" count={repo.views} uniques={repo.viewsUniques} color="#d2a8ff" />
+              <TrafficBadge icon="&#128230;" count={repo.clones} uniques={repo.clonesUniques} color="#79c0ff" />
+              <TrafficBadge icon="&#128065;" count={repo.views} uniques={repo.viewsUniques} color="#d2a8ff" />
             </div>
           )}
           {/* ダウンロードバー */}
@@ -232,9 +232,11 @@ export default function App() {
   const [fadeIn, setFadeIn] = useState(false)
   const [token, setToken] = useState(() => localStorage.getItem('gh_token') || '')
   const [showToken, setShowToken] = useState(false)
+  const tokenRef = useRef(token)
 
   const saveToken = (val) => {
     setToken(val)
+    tokenRef.current = val
     if (val) localStorage.setItem('gh_token', val)
     else localStorage.removeItem('gh_token')
   }
@@ -246,7 +248,8 @@ export default function App() {
     setExpanded(null)
     setFadeIn(false)
 
-    const headers = authHeaders(token)
+    const currentToken = tokenRef.current
+    const headers = authHeaders(currentToken)
 
     try {
       const repoRes = await fetch(`${API}/users/${user}/repos?per_page=100&sort=updated`, { headers })
@@ -269,7 +272,7 @@ export default function App() {
           try {
             const [relRes, ...trafficResults] = await Promise.all([
               fetch(`${API}/repos/${user}/${repo.name}/releases?per_page=100`, { headers }),
-              ...(token ? [
+              ...(currentToken ? [
                 fetch(`${API}/repos/${user}/${repo.name}/traffic/clones`, { headers }).catch(() => null),
                 fetch(`${API}/repos/${user}/${repo.name}/traffic/views`, { headers }).catch(() => null),
               ] : []),
@@ -279,7 +282,7 @@ export default function App() {
 
             // Traffic data（トークン認証 + push権限がある場合のみ取得可能）
             let clones = null, clonesUniques = null, views = null, viewsUniques = null
-            if (token && trafficResults.length === 2) {
+            if (currentToken && trafficResults.length === 2) {
               const [clonesRes, viewsRes] = trafficResults
               if (clonesRes?.ok) {
                 const d = await clonesRes.json()
@@ -335,7 +338,7 @@ export default function App() {
     } finally {
       setLoading(false)
     }
-  }, [t, token])
+  }, [t])
 
   useEffect(() => { fetchData(username) }, [username, fetchData])
 
