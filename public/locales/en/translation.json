@@ -1,0 +1,41 @@
+{
+  "header": {
+    "title": "Download Counter",
+    "subtitle": "— GitHub Releases API Sample"
+  },
+  "search": {
+    "placeholder": "Enter GitHub username...",
+    "fetch": "Fetch",
+    "loading": "Fetching repositories for {{username}}..."
+  },
+  "error": {
+    "userNotFound": "User \"{{user}}\" not found",
+    "rateLimit": "API rate limit reached. Please wait and try again.",
+    "apiError": "API Error: {{status}}"
+  },
+  "summary": {
+    "totalDownloads": "Total Downloads",
+    "repositories": "Repositories",
+    "releases": "Releases",
+    "withDownloads": "With Downloads",
+    "clones14d": "Clones (14d)",
+    "views14d": "Views (14d)"
+  },
+  "repo": {
+    "downloads": "downloads",
+    "release": "release",
+    "releases": "releases",
+    "sourceOnly": "Source code only"
+  },
+  "token": {
+    "toggle": "Personal Access Token",
+    "placeholder": "ghp_xxxxxxxxxxxx",
+    "clear": "Clear",
+    "description": "Optional: Enter a GitHub PAT to view clone/view traffic (your repos only, last 14 days) and increase rate limit to 5,000 req/hr. The token is stored in localStorage only."
+  },
+  "footer": {
+    "endpoints": "Endpoints",
+    "stack": "Stack: React + Vite | Parallel fetch (Promise.all) | No auth 60 req/hr, Token auth 5,000 req/hr",
+    "copyright": "© 2025 obott9 — GitHub Download Counter"
+  }
+}
