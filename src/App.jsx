@@ -459,9 +459,11 @@ export default function App() {
               marginTop: 8, padding: '12px 14px', borderRadius: 8,
               background: '#161b22', border: '1px solid #21262d',
             }}>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <form style={{ display: 'flex', gap: 8, alignItems: 'center' }} onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
+                <input type="hidden" name="username" autoComplete="username" value="github-pat" />
                 <input
-                  type="password" value={token}
+                  type="password" name="password" autoComplete="current-password"
+                  value={token}
                   onChange={(e) => saveToken(e.target.value)}
                   placeholder={t('token.placeholder')}
                   style={{
@@ -472,7 +474,7 @@ export default function App() {
                   }}
                 />
                 {token && (
-                  <button onClick={() => saveToken('')} style={{
+                  <button type="button" onClick={() => saveToken('')} style={{
                     padding: '8px 12px', borderRadius: 6, border: '1px solid #30363d',
                     background: 'transparent', color: '#f85149', fontSize: 12,
                     cursor: 'pointer',
@@ -480,7 +482,7 @@ export default function App() {
                     {t('token.clear')}
                   </button>
                 )}
-              </div>
+              </form>
               <p style={{ fontSize: 11, color: '#484f58', marginTop: 6, lineHeight: 1.5 }}>
                 {t('token.description')}
               </p>
