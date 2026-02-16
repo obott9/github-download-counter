@@ -232,6 +232,7 @@ export default function App() {
   const [fadeIn, setFadeIn] = useState(false)
   const [token, setToken] = useState(() => localStorage.getItem('gh_token') || '')
   const [showToken, setShowToken] = useState(false)
+  const [trafficWarning, setTrafficWarning] = useState(null)
   const tokenRef = useRef(token)
 
   const saveToken = (val) => {
@@ -250,6 +251,7 @@ export default function App() {
 
     const currentToken = tokenRef.current
     const headers = authHeaders(currentToken)
+    let trafficForbidden = false
 
     try {
       const repoRes = await fetch(`${API}/users/${user}/repos?per_page=100&sort=updated`, { headers })
@@ -288,6 +290,8 @@ export default function App() {
                 const d = await clonesRes.json()
                 clones = d.count
                 clonesUniques = d.uniques
+              } else if (clonesRes?.status === 403) {
+                trafficForbidden = true
               }
               if (viewsRes?.ok) {
                 const d = await viewsRes.json()
@@ -332,6 +336,7 @@ export default function App() {
       results.sort((a, b) => (a.totalDownloads === 0 && b.totalDownloads === 0)
         ? b.stars - a.stars : b.totalDownloads - a.totalDownloads)
       setRepos(results)
+      setTrafficWarning(trafficForbidden ? 'forbidden' : null)
       setTimeout(() => setFadeIn(true), 50)
     } catch (err) {
       setError(err.message)
@@ -479,6 +484,15 @@ export default function App() {
               <p style={{ fontSize: 11, color: '#484f58', marginTop: 6, lineHeight: 1.5 }}>
                 {t('token.description')}
               </p>
+              {trafficWarning === 'forbidden' && (
+                <p style={{
+                  fontSize: 11, color: '#d29922', marginTop: 6, lineHeight: 1.5,
+                  padding: '6px 8px', borderRadius: 4,
+                  background: 'rgba(210,153,34,0.08)', border: '1px solid rgba(210,153,34,0.2)',
+                }}>
+                  {t('token.forbidden')}
+                </p>
+              )}
             </div>
           )}
         </div>
