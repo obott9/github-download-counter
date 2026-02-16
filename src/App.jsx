@@ -95,7 +95,7 @@ function ReleaseCard({ release, isLast, t, lng }) {
 }
 
 /* ─── Traffic バッジ（クローン/ビュー） ─── */
-function TrafficBadge({ icon, count, uniques, color }) {
+function TrafficBadge({ icon, count, uniques, color, t }) {
   if (count == null) return null
   return (
     <div style={{
@@ -103,7 +103,7 @@ function TrafficBadge({ icon, count, uniques, color }) {
     }}>
       <span style={{ color, fontSize: 13 }}>{icon}</span>
       <span style={{ color }}>{fmt(count)}</span>
-      <span style={{ color: '#484f58', fontSize: 11 }}>({fmt(uniques)} uniq)</span>
+      <span style={{ color: '#484f58', fontSize: 11 }}>({fmt(uniques)} {t('repo.unique')})</span>
     </div>
   )
 }
@@ -171,8 +171,8 @@ function RepoRow({ repo, maxDL, expanded, onToggle, hasToken, t, lng }) {
           {/* Traffic バッジ（トークン認証時のみ） */}
           {hasToken && (repo.clones != null || repo.views != null) && (
             <div style={{ display: 'flex', gap: 16, marginTop: 6 }}>
-              <TrafficBadge icon="&#128230;" count={repo.clones} uniques={repo.clonesUniques} color="#79c0ff" />
-              <TrafficBadge icon="&#128065;" count={repo.views} uniques={repo.viewsUniques} color="#d2a8ff" />
+              <TrafficBadge icon="&#128230;" count={repo.clones} uniques={repo.clonesUniques} color="#79c0ff" t={t} />
+              <TrafficBadge icon="&#128065;" count={repo.views} uniques={repo.viewsUniques} color="#d2a8ff" t={t} />
             </div>
           )}
           {/* ダウンロードバー */}

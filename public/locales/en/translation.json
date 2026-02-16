@@ -25,7 +25,8 @@
     "downloads": "downloads",
     "release": "release",
     "releases": "releases",
-    "sourceOnly": "Source code only"
+    "sourceOnly": "Source code only",
+    "unique": "uniq"
   },
   "token": {
     "toggle": "Personal Access Token",
